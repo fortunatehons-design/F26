@@ -1,0 +1,7 @@
+{
+  "name": "FIFA 2026 VIP Hospitality",
+  "description": "Exclusive VIP hospitality ticket reservation system for FIFA 2026 with AI Concierge, voice interaction, and multilingual support.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

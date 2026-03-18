@@ -1,0 +1,129 @@
+{
+  "entities": {
+    "Package": {
+      "title": "VIP Package",
+      "description": "FIFA 2026 VIP Hospitality Package",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "city": { "type": "string" },
+        "price": { "type": "number" },
+        "description": { "type": "string" },
+        "availability": { "type": "integer" },
+        "features": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["name", "city", "price", "availability"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Ticket reservation order",
+      "type": "object",
+      "properties": {
+        "packageId": { "type": "string" },
+        "packageName": { "type": "string" },
+        "quantity": { "type": "integer" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending_wire", "paid", "cancelled"] },
+        "userEmail": { "type": "string", "format": "email" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "cardLast4": { "type": "string" },
+        "wireInstructionsSent": { "type": "boolean" },
+        "wireTransferScreenshot": { "type": "string" },
+        "paymentConfirmedByUser": { "type": "boolean" }
+      },
+      "required": ["packageId", "quantity", "totalAmount", "status", "userEmail", "userId"]
+    },
+    "BankAccount": {
+      "title": "Bank Account",
+      "description": "Secure wire transfer instructions",
+      "type": "object",
+      "properties": {
+        "bankName": { "type": "string" },
+        "accountHolder": { "type": "string" },
+        "iban": { "type": "string" },
+        "swift": { "type": "string" },
+        "active": { "type": "boolean" }
+      },
+      "required": ["bankName", "accountHolder", "iban", "swift"]
+    },
+    "Feedback": {
+      "title": "Feedback",
+      "description": "User interaction feedback",
+      "type": "object",
+      "properties": {
+        "rating": { "type": "integer" },
+        "comment": { "type": "string" },
+        "userId": { "type": "string" },
+        "orderId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["rating", "userId"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User roles and metadata",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user"] }
+      },
+      "required": ["email", "role"]
+    },
+    "Match": {
+      "title": "Match",
+      "description": "FIFA 2026 Match Information",
+      "type": "object",
+      "properties": {
+        "homeTeam": { "type": "string" },
+        "awayTeam": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "venue": { "type": "string" },
+        "city": { "type": "string" },
+        "stage": { "type": "string" }
+      },
+      "required": ["homeTeam", "awayTeam", "date", "venue", "city"]
+    },
+    "KnowledgeBase": {
+      "title": "Knowledge Base",
+      "description": "General information for the AI Concierge",
+      "type": "object",
+      "properties": {
+        "topic": { "type": "string" },
+        "content": { "type": "string" },
+        "category": { "type": "string", "enum": ["general", "stadium", "travel", "faq"] }
+      },
+      "required": ["topic", "content", "category"]
+    }
+  },
+  "firestore": {
+    "/packages/{packageId}": {
+      "schema": "Package",
+      "description": "Available VIP packages"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer orders"
+    },
+    "/bankAccounts/{accountId}": {
+      "schema": "BankAccount",
+      "description": "Admin bank details"
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "User feedback"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles"
+    },
+    "/matches/{matchId}": {
+      "schema": "Match",
+      "description": "Match schedule and details"
+    },
+    "/knowledgeBase/{entryId}": {
+      "schema": "KnowledgeBase",
+      "description": "Concierge knowledge base entries"
+    }
+  }
+}
